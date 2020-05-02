@@ -1,26 +1,67 @@
 {% extends 'layout/base.html' %}
 {% block title %}抽奖页面{% endblock %}
 {% block content %}
-<div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<h3>
-				幸运之神即将降临！！！
-			</h3>
-			<div class="row clearfix">
-				<div class="col-md-2 column">
-				</div>
-				<div class="col-md-6 column">
-                    {% if is_login %}
-                        <button id="drawStart">开始抽奖</button>
-                    {% else %}
-                        <a href="login.html">先去登录</a>
-                    {% endif %}
-				</div>
-				<div class="col-md-4 column">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <h3>
+                    幸运之神即将降临！！！
+                </h3>
+                <div class="row clearfix">
+                    <div class="col-md-2 column">
+                    </div>
+                    <div class="col-md-6 column">
+                        {% if is_login %}
+                            <button id="drawStart">开始抽奖</button>
+                        {% else %}
+                            <a href="login.html">先去登录</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 column">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <blockquote>
+                    <p id="msg">就绪...</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#drawStart").click(function () {
+                var count = 30;
+                $.get("/draw_start", function (data, status) {
+                    if (data.code !== 0) {
+                        $('#msg').html(data.msg);
+                        return false;
+                    }
+                    console.info('draw_start ', data);
+                    var interval = setInterval(function () {
+                        count--;
+                        if (count > 0) {
+                            $('#msg').html('幸运大转盘。。。 ' + count + 's');
+                        }
+                    }, 1000)
+                    setTimeout(function () {
+                        clearInterval(interval);
+                        $.get("/draw_end", function (data, status) {
+                            if (data.code === 0) {
+                                $('#msg').html(data.data.desc);
+                            } else {
+                                $('#msg').html(data.msg);
+                            }
+                        }).error(function (error) {
+                            console.error(error);
+                        });
+                    }, 30 * 1000)
+                }).error(function (error) {
+                    console.error(error);
+                });
+            });
+        });
+    </script>
 {% endblock %}

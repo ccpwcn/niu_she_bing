@@ -49,6 +49,7 @@ class User(models.Model):
 class FestivalGoods(models.Model):
     id = models.IntegerField('ID', default=0, primary_key=True)
     name = models.CharField('名称', max_length=20)
+    desc = models.CharField('描述', max_length=200, null=True)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
     update_time = models.DateTimeField('更新时间', auto_now=True)
 

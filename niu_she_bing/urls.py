@@ -21,7 +21,9 @@ import fg_pc.views
 urlpatterns = [
     path('', fg_pc.views.index),
     path('login.html', fg_pc.views.login),
-    path('login_handler.html', fg_pc.views.login_handler),
+    path('login_handler', fg_pc.views.login_handler),
+    path('draw_start', fg_pc.views.draw_start),
+    path('draw_end', fg_pc.views.draw_end),
     path('error.html', fg_pc.views.error),
     path('admin/', admin.site.urls),
 ]
