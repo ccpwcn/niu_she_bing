@@ -1,14 +1,33 @@
-from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
-from common.models import Article
+from django.urls import reverse
+
+from common.models import User
 
 
 def index(request):
-    page = int(request.GET.get('page', 1))
-    page_size = int(request.GET.get('pageSize', 10))
-    items = Article.objects.all()[(page - 1) * page_size : page * page_size]
-    total = Article.objects.count()
-    ctx = {'items': items, 'page': page, 'page_size': page_size, 'total': total}
+    uid = request.session.get('uid', None)
+    ctx = {'is_login': uid}
     return render(request, 'index.html', ctx)
+
+
+def login(request):
+    ctx = {}
+    return render(request, 'login.html', ctx)
+
+
+def error(request):
+    ctx = {'title': '登录失败', 'msg': '用户名或密码错误'}
+    return render(request, 'error.html', ctx)
+
+
+def login_handler(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    row = User.objects.filter(username=username, password=password).first()
+    if not row:
+        return redirect(to='/error.html')
+    else:
+        request.session['uid'] = row.id
+        return redirect(to='/')

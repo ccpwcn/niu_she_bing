@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'fg_pc.middleware.AuthMiddleware'
 ]
 
 ROOT_URLCONF = 'niu_she_bing.urls'
