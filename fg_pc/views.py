@@ -1,13 +1,14 @@
 import time
 from random import choice
 
+from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse
 
-from common.models import User, DrawLog, FestivalGoods
+from common.models import User, DrawLog, FestivalGoods, Article
 
 
 def index(request):
@@ -68,3 +69,30 @@ def draw_end(request):
             return JsonResponse(data=d)
         else:
             return JsonResponse(data={'code': 1, 'msg': '您已经抽过奖了，不能再抽了'})
+
+
+def payment(request):
+    try:
+        with transaction.atomic():
+            u = User(username='u1', nickname='user-1')
+            u.save()
+            a = Article(title='a1', content='article-1')
+            a.save()
+    except Exception as e:
+        return JsonResponse(data={'code': 0, 'msg': '系统出现错误，请稍后重试'})
+    return JsonResponse(data={'code': 0, 'msg': '成功'})
+
+
+def action(request):
+    # 查询
+    day = time.localtime(time.time()).tm_mday
+    n = DrawLog.objects.filter(user_id=1, create_time__day=day).count()
+
+    # 新增
+    dl = DrawLog(user_id=1, festival_goods_id=2)
+    dl.save()
+
+    # 更新
+    u = User.objects.get(id=1)
+    u.name = '琴心剑胆写代码'
+    u.save()
