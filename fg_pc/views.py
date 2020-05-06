@@ -87,6 +87,7 @@ def action(request):
     # 查询
     day = time.localtime(time.time()).tm_mday
     n = DrawLog.objects.filter(user_id=1, create_time__day=day).count()
+    print(n)
 
     # 新增
     dl = DrawLog(user_id=1, festival_goods_id=2)
