@@ -82,7 +82,7 @@ def cloud(request):
         text = f.read()
     words = jieba.cut(text)
     words = " ".join(words)
-    image_name = os.path.join(d, 'heart.jpg')  # 背景图片，也是词云的塑形图片
+    image_name = os.path.join(d, '草莓.jpg')  # 背景图片，也是词云的塑形图片
     coloring = imread(image_name)  # 读取图片
     font_name = "D:/fonts/Alibaba-PuHuiTi-Regular.ttf"
     word_cloud = WordCloud(
