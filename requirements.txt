@@ -1,2 +1,4 @@
 Django
 mysqlclient==1.4.6
+jieba
+wordcloud

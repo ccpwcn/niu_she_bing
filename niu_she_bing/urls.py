@@ -24,6 +24,7 @@ urlpatterns = [
     path('login_handler', fg_pc.views.login_handler),
     path('draw_start', fg_pc.views.draw_start),
     path('draw_end', fg_pc.views.draw_end),
+    path('cloud', fg_pc.views.cloud),
     path('error.html', fg_pc.views.error),
     path('admin/', admin.site.urls),
 ]
