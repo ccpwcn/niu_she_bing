@@ -50,5 +50,10 @@ class TestMyMath(unittest.TestCase):
         print('完成')
 
 
+class TestExcept(unittest.TestCase):
+    def test_div(self):
+        print(1 / 0)
+
+
 if __name__ == '__main__':
     unittest.main()

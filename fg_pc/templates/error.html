@@ -1,22 +1,21 @@
-{% extends 'layout/base.html' %}
-{% block title %}{{ title }}{% endblock %}
-{% block content %}
-<div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<h3>
-                {{ title}}
-			</h3>
-			<div class="row clearfix">
-				<div class="col-md-2 column">
-				</div>
-				<div class="col-md-6 column">
-                    {{ msg }}
-				</div>
-				<div class="col-md-4 column">
-				</div>
-			</div>
-		</div>
-	</div>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>错误</title>
+    <meta http-equiv="refresh" content="120;url=https://11ms.cn">
+    <link href="/static/css/error.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="container">
+    <img class="png" src="/static/images/404.png" alt="not found"/>
+    <img class="png msg" src="/static/images/404_msg.png" alt="not found"/>
+    <p>
+        <a href="http://11ms.cn" target="_blank">
+            <img class="png" src="/static/images/404_to_index.png" alt="to home page"/>
+        </a>
+    </p>
 </div>
-{% endblock %}
+<div id="cloud" class="png"></div>
+</body>
+</html>

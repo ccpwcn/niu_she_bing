@@ -76,22 +76,26 @@ def draw_end(request):
 
 
 def cloud(request):
-    d = os.path.join(os.path.dirname(__file__), 'res')
-    text = ''
-    with open(os.path.join(d, 'news.text'), encoding='utf-8') as f:
-        text = f.read()
-    words = jieba.cut(text)
-    words = " ".join(words)
-    image_name = os.path.join(d, '草莓.jpg')  # 背景图片，也是词云的塑形图片
-    coloring = imread(image_name)  # 读取图片
-    font_name = "D:/fonts/Alibaba-PuHuiTi-Regular.ttf"
-    word_cloud = WordCloud(
-        mask=coloring,
-        background_color='white',  # 白色背景
-        font_path=font_name).generate(words)
-    img = word_cloud.to_svg()
-    ctx = {'title': '词云', 'img_data': img}
-    return render(request, 'cloud.html', ctx)
+    try:
+        d = os.path.join(os.path.dirname(__file__), 'res')
+        text = ''
+        with open(os.path.join(d, 'news.text'), encoding='utf-8') as f:
+            text = f.read()
+        words = jieba.cut(text)
+        words = " ".join(words)
+        image_name = os.path.join(d, '草莓1.jpg')  # 背景图片，也是词云的塑形图片
+        coloring = imread(image_name)  # 读取图片
+        font_name = "D:/fonts/Alibaba-PuHuiTi-Regular.ttf"
+        word_cloud = WordCloud(
+            mask=coloring,
+            background_color='white',  # 白色背景
+            font_path=font_name).generate(words)
+        img = word_cloud.to_svg()
+        ctx = {'title': '词云', 'img_data': img}
+        return render(request, 'cloud.html', ctx)
+    except Exception as e:
+        ctx = {'title': '系统内部错误', 'msg': '如果您尝试多次仍然有问题，请联系琴心剑胆写代码'}
+        return render(request, 'error.html', ctx)
 
 
 def payment(request):
