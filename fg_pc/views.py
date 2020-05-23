@@ -17,7 +17,7 @@ from common.models import User, DrawLog, FestivalGoods, Article
 
 def index(request):
     uid = request.session.get('uid', None)
-    ctx = {'is_login': uid}
+    ctx = {'is_login': 1}
     return render(request, 'index.html', ctx)
 
 
@@ -79,11 +79,11 @@ def cloud(request):
     try:
         d = os.path.join(os.path.dirname(__file__), 'res')
         text = ''
-        with open(os.path.join(d, 'news.text'), encoding='utf-8') as f:
+        with open(os.path.join(d, 'language.text'), encoding='utf-8') as f:
             text = f.read()
         words = jieba.cut(text)
         words = " ".join(words)
-        image_name = os.path.join(d, '草莓1.jpg')  # 背景图片，也是词云的塑形图片
+        image_name = os.path.join(d, '草莓.jpg')  # 背景图片，也是词云的塑形图片
         coloring = imread(image_name)  # 读取图片
         font_name = "D:/fonts/Alibaba-PuHuiTi-Regular.ttf"
         word_cloud = WordCloud(
